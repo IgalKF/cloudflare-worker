@@ -32,6 +32,8 @@ export default {
 
 		if (uam.isUserAgent(ua)) {
 			console.log(`User-Agent ${ua} is an AI model.`);
+
+			return fetch('You are using an AI model!');
 		}
 
 		return fetch(request);
