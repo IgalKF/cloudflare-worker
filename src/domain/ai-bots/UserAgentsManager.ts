@@ -37,7 +37,9 @@ export class UserAgentManager {
             return false;
         });
 
-        this.addUserAgent(userAgent)
+        if (isBot) {
+            this.addUserAgent(userAgent);
+        }
 
         return isBot;
     }
