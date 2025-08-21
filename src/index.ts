@@ -11,8 +11,22 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
+import { UserAgentManager } from "./domain/ai-bots/UserAgentsManager";
+import { AuditWebhookDispatcher } from "./domain/audit/AuditWebhookDispatcher";
+import { IAuditDispatcher } from "./domain/audit/IAuditDispatcher";
+
+const uam = new UserAgentManager();
+const auditDispatcher: IAuditDispatcher = new AuditWebhookDispatcher();
+
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
-		return new Response('Hello World!');
+		const ua = (request.headers.get("user-agent") || "").toLowerCase();
+		auditDispatcher.AuditRequest(request);
+
+		if (uam.isUserAgent(ua)) {
+			
+		}
+
+		return fetch(request);
 	},
 } satisfies ExportedHandler<Env>;
