@@ -24,10 +24,10 @@ export default {
 
 		console.log(`Request received from User-Agent: ${ua}`);
 
-		auditDispatcher.AuditRequest(request);
+		await auditDispatcher.AuditRequest(request);
 
 		if (uam.isUserAgent(ua)) {
-			
+			console.log(`User-Agent ${ua} is an AI model.`);
 		}
 
 		return fetch(request);
