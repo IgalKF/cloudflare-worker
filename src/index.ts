@@ -31,9 +31,9 @@ export default {
 
 		await auditDispatcher.AuditRequest({ ua: request.headers.get("user-agent") });
 
-		if (uam.isUserAgent(ua)) {
+		if (uam.isAiUserAgent(ua)) {
 			console.log(`User-Agent ${ua} is an AI model.`);
-
+			
 			try {
 				const fetchResponse = await fetch(request);
 				const responseHtml = await fetchResponse.text();
@@ -44,7 +44,8 @@ export default {
 				return new Response("Internal Server Error", { status: 500 });
 			}
 		}
-
+		
+		console.log(`User-Agent ${ua} is a non-AI channel.`);
 		return fetch(request);
 	},
 } satisfies ExportedHandler<Env>;

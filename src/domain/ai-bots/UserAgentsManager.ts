@@ -23,7 +23,7 @@ export class UserAgentManager {
         this.userAgents = new Set();
     }
 
-    public isUserAgent(userAgent: string): boolean {
+    public isAiUserAgent(userAgent: string): boolean {
         if (this.userAgents.has(userAgent)) {
             return true;
         }
