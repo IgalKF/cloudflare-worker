@@ -1,4 +1,6 @@
+import { AuditRequest } from "./AuditRequest";
+
 export interface IAuditDispatcher {
-    AuditRequest(request: Request<unknown, IncomingRequestCfProperties<unknown>>): Promise<void>;
+    AuditRequest(request: AuditRequest): Promise<void>;
     env?: Env;
 }

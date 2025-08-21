@@ -28,7 +28,7 @@ export default {
 
 		console.log(`Request received from User-Agent: ${ua}`);
 
-		await auditDispatcher.AuditRequest(request);
+		await auditDispatcher.AuditRequest({ ua: request.headers.get("user-agent") });
 
 		if (uam.isUserAgent(ua)) {
 			console.log(`User-Agent ${ua} is an AI model.`);

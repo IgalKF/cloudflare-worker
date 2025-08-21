@@ -1,3 +1,4 @@
+import { AuditRequest } from "./AuditRequest";
 import { IAuditDispatcher } from "./IAuditDispatcher";
 
 export class AuditConsoleDispatcher implements IAuditDispatcher {
@@ -7,7 +8,7 @@ export class AuditConsoleDispatcher implements IAuditDispatcher {
         this.logger = console;
     }
 
-    public AuditRequest(request: Request<unknown, IncomingRequestCfProperties<unknown>>): Promise<void> {
+    public AuditRequest(request: AuditRequest): Promise<void> {
         this.logger.log("Request received:", request);
         return Promise.resolve();
     }

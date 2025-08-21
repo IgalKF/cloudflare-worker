@@ -1,3 +1,4 @@
+import { AuditRequest } from "./AuditRequest";
 import { IAuditDispatcher } from "./IAuditDispatcher";
 
 export class AuditWebhookDispatcher implements IAuditDispatcher {
@@ -5,7 +6,7 @@ export class AuditWebhookDispatcher implements IAuditDispatcher {
     private retryCountLimit = 5;
     public env?: Env;
 
-    public async AuditRequest(request: Request): Promise<void> {
+    public async AuditRequest(request: AuditRequest): Promise<void> {
         this.retryCount = 0;
         if (!this.env?.WEBHOOK_URL) {
             console.error('WEBHOOK_URL is not set as an environment variable. Skipping webhook dispatch.');
@@ -23,7 +24,7 @@ export class AuditWebhookDispatcher implements IAuditDispatcher {
         return Promise.resolve();
     }
 
-    private async dispatchWebhook(request: Request): Promise<Response> {
+    private async dispatchWebhook(request: AuditRequest): Promise<Response> {
         if (!this.env?.WEBHOOK_URL) {
             return Promise.resolve(new Response('WEBHOOK_URL is not set', { status: 500 }));
         }
