@@ -21,6 +21,9 @@ const auditDispatcher: IAuditDispatcher = new AuditWebhookDispatcher();
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
 		const ua = (request.headers.get("user-agent") || "").toLowerCase();
+
+		console.log(`Request received from User-Agent: ${ua}`);
+
 		auditDispatcher.AuditRequest(request);
 
 		if (uam.isUserAgent(ua)) {
