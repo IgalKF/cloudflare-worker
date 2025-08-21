@@ -28,7 +28,15 @@ export class UserAgentManager {
             return true;
         }
 
-        const isBot = this.userAgentPatterns.some((pattern) => pattern.test(userAgent));
+        const isBot = this.userAgentPatterns.some((pattern) => {
+            if (pattern.test(userAgent)) {
+                console.log(`User-Agent ${userAgent} matches pattern: ${pattern}`);
+                return true;
+            }
+
+            return false;
+        });
+
         this.addUserAgent(userAgent)
 
         return isBot;
