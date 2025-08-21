@@ -16,6 +16,7 @@
 		"wrangler": "^4.31.0"
 	},
 	"dependencies": {
-		"@types/node": "^24.3.0"
+		"@types/node": "^24.3.0",
+		"node-html-parser": "^7.0.1"
 	}
 }

@@ -14,6 +14,7 @@
 import { UserAgentManager } from "./domain/ai-bots/UserAgentsManager";
 import { AuditWebhookDispatcher } from "./domain/audit/AuditWebhookDispatcher";
 import { IAuditDispatcher } from "./domain/audit/IAuditDispatcher";
+import { HtmlParser } from "./domain/html-parser/HtmlParser";
 
 const uam = new UserAgentManager();
 const auditDispatcher: IAuditDispatcher = new AuditWebhookDispatcher();
@@ -33,7 +34,15 @@ export default {
 		if (uam.isUserAgent(ua)) {
 			console.log(`User-Agent ${ua} is an AI model.`);
 
-			return new Response('You are using an AI model!');
+			try {
+				const fetchResponse = await fetch(request);
+				const responseHtml = await fetchResponse.text();
+				const plainText = new HtmlParser(responseHtml).stripDocumentToPlainText();
+				return new Response(plainText);
+			} catch (error) {
+				console.error("Error processing AI User-Agent request:", error);
+				return new Response("Internal Server Error", { status: 500 });
+			}
 		}
 
 		return fetch(request);
